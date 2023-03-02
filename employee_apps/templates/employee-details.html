@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">    
+    <a href="/employee-list" class="btn btn-success">Back to Employee List</a>
+    <a href="/employee-add" class="btn btn-success">Add New Employee</a>
+    <a href="/employee-edit/{{ get_emp_details.id }}" class="btn btn-success">Edit This Employee Information</a>
+    <h3 class="mt-3 mb-3">Employee Details</h3>
+    <form method="POST">
+        {% csrf_token %}
+            <table class="table">
+                <tr>
+                    <th style="width: 200px;">Full Name</th>
+                    <td>{{ get_emp_details.full_name }}</td>
+                </tr>
+                <tr>
+                    <th>Email Address</th>
+                    <td>{{ get_emp_details.email }}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number</th>
+                    <td>{{ get_emp_details.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Present Address</th>
+                    <td>{{ get_emp_details.present_address }}</td>
+                </tr>
+                <tr>
+                    <th>Permanent Address</th>
+                    <td>{{ get_emp_details.permanent_address }}</td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td>{{ get_emp_details.dob }}</td>
+                </tr>
+                <tr>
+                    <th>Father's Name</th>
+                    <td>{{ get_emp_details.fathers_name }}</td>
+                </tr>
+                <tr>
+                    <th>Mother's Name</th>
+                    <td>{{ get_emp_details.mothers_name }}</td>
+                </tr>
+                <tr>
+                    <th>Job Title</th>
+                    <td>{{ get_emp_details.job_title }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ get_emp_details.department.department }}</td>
+                </tr>
+            </table>
+    </form>
+</div>
+{% endblock %}

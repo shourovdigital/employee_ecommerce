@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h3>Add New Employee</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label for="full_name">Full Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="full_name" placeholder="Enter your full name here" name="full_name" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="email">Email <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="email" placeholder="Enter your valid email address here" name="email" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="phone">Phone Number <span class="text-danger">*</span></label>
+                <!-- <input type="text" class="form-control" id="phone" pattern="/(^(\+8801|8801|01|008801))[1|3-9]{1}(\d){8}$/" placeholder="Enter your valid phone number here" name="phone" required> -->
+                <input name="phone" id="mobile_number" type="number" minlength="11" maxlength="11" class="form-control" value="" placeholder="Mobile Number" onkeypress="return event.charCode >= 48" min="1"  required/>
+                <span id="hide_number_message" style="color:red">Please Enter English Number</span>
+                <!-- <input type="text" id="phone" name="phone" class="form-control" pattern="[0-9]" maxlength="14" minlength="11"> -->
+                                
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="present_address">Present Address</label>
+                <input type="text" class="form-control" id="present_address" placeholder="Enter your valid present address here" name="present_address">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="dob">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="permanent_address">Permanent Address</label>
+                <input type="text" class="form-control" id="permanent_address" placeholder="Enter your permanent address here" name="permanent_address">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="fathers_name">Father's Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="fathers_name" placeholder="Enter your valid father's name number here" name="fathers_name" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="mothers_name">Mother's Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="mothers_name" placeholder="Enter your valid mother's name number here" name="mothers_name" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="job_title">Job Title<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="job_title" placeholder="Enter your job title here" name="job_title" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="department">Select Department<span class="text-danger">*</span></label>
+                <select name="department" class="form-control">
+                    <option value="">Select Department</option>
+                    {% for obj in get_department %}
+                        <option value="{{ obj.id }}">{{ obj.department }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+<script>
+    $("#hide_number_message").hide();
+    $(document).ready(function(){
+        var get_number = $("#mobile_number").val();  
+        if (get_number != ''){
+            $('#hideAccountPasswordField').hide();
+        } 
+    })
+   
+    $('#mobile_number').on('keyup', function() {
+        limitText(this, 11)
+    });
+    function limitText(field, maxChar){
+        var ref = $(field),
+            val = ref.val();
+        if ( val.length >= maxChar ){
+            ref.val(function() {
+                console.log(val.substr(0, maxChar))
+                return val.substr(0, maxChar);       
+            });
+        }
+    }
+
+    
+    $("#mobile_number").keyup(function(){
+        var get_key = $("#mobile_number").val();
+        if (get_key.length == 2){
+            if (get_key != "01"){
+                // alert("Please Enter English Number");
+                $("#hide_number_message").show();
+                $("#mobile_number").val(" ");
+            }
+        }else{
+            $("#hide_number_message").hide();
+        }
+    }) 
+</script>
+<!-- <script>
+    function validatePhone() {
+      let phone = document.getElementById("phone").value;
+      let regex = /^(?:\+88|88)?(01[3-9]\d{8})$/; // regular expression for Bangladeshi phone numbers
+      
+      if (regex.test(phone)) {
+        document.getElementById("result").innerHTML = "Valid Bangladeshi phone number!";
+      } else {
+        document.getElementById("result").innerHTML = "Invalid Bangladeshi phone number!";
+      }
+    }
+  </script> -->
+{% endblock %}

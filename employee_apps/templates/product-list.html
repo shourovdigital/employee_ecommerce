@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-decoration-underline">Product List</h1> <hr>
+    <a href="/product-add" class="btn btn-success">Add New Product</a>
+    <a href="/product-excel-export" class="btn btn-info">Excel</a>
+    <div class="row mt-3">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Regular Price</th>
+                <th scope="col">Sales Price</th>
+                <th scope="col">Category</th>
+                <th scope="col">Qty</th>
+                <th scope="col" style="width: 180px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for obj in get_products %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.product_name }}</td>
+                    <td>{{ obj.regular_price }}
+                      <a href="/product-regular-price-update/{{ obj.id }}" class="btn btn-warning btn-sm" style="font-size: x-small;">Update</a>
+                    </td>
+                    <td>{{ obj.sales_price }}
+                      <a href="/product-sales-price-update/{{ obj.id }}/" class="btn btn-warning btn-sm" style="font-size: x-small;">Update</a>
+                    </td>
+                    <td>{{ obj.category.category_name }}</td>
+                    <td>{{ obj.stock_qty }}
+                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#qtyModal" onclick="productQty('{{ obj.id }}')" style="font-size: x-small;" >Add</button>
+                    </td>
+                    <td>
+                        <a href="/product-details/{{obj.id}}" class="btn btn-info btn-sm" style="font-size: small;"><i class="fas fa-eye"></i></a>
+                        <a href="/product-edit/{{ obj.id }}" class="btn btn-warning btn-sm" style="font-size: small;"><i class="fas fa-edit"></i></a>
+                        <a href="/product-delete/{{ obj.id }}"class="btn btn-danger btn-sm" style="font-size: small;"><i class="fas fa-trash"></i></a>
+                        <a href="/product-log/{{ obj.id }}"class="btn btn-danger btn-sm" style="font-size: small;">log</i></a>
+                    </td>
+                </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Qty Modal -->
+<div class="modal fade" id="qtyModal" tabindex="-1" aria-labelledby="qtyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="qtyModalLabel">Qty Update</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+            <div class="modal-body">
+                <input type="hidden" name="product_id" id="product_id" class="form-control">
+                <input type="number" name="stock_qty" id="stock_qty" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+    function productQty(product_id){ 
+        $("#product_id").val(product_id);
+    }
+</script>
+
+{% endblock %}

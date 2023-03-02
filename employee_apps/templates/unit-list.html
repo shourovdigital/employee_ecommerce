@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Unit List</h1>
+    <a href="/unit-add" class="btn btn-success">Add New Unit</a>
+    <a href="/unit-list-excel-export", class="btn btn-info">Excel</a>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Unit Name</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for obj in get_units %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.unit_name }}</td>
+                    <td>
+                        <a href="/unit-edit/{{ obj.id }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                        <a href="/unit-delete/{{ obj.id }}"class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

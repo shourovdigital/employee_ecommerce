@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="text-center">Product Details</h3> <hr>
+    <form method="POST">
+        {% csrf_token %}
+            <div class="row mb-5">
+                <div class="mb-3">
+                    <a href="/product-list" class="btn btn-primary">Product List</a> &nbsp;&nbsp;
+                    <a href="/product-edit/{{ get_details.id }}" class="btn btn-warning">Edit This Product</a>&nbsp;&nbsp;
+                    <a href="/product-add" class="btn btn-success">Add New Product</a>
+                </div>
+                <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                        <th class="col-sm-4">Product Name</th>
+                        <td class="col-sm-8">{{ get_details.product_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Regular Price</th>
+                        <td class="col-sm-8">{{ get_details.regular_price }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Sales Price</th>
+                        <td class="col-sm-8">{{ get_details.sales_price }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Category</th>
+                        <td class="col-sm-8">{{ get_details.category.category_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Color</th>
+                        <td class="col-sm-8">{{ get_details.color.color_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Size</th>
+                        <td class="col-sm-8">{{ get_details.size.size_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Brand</th>
+                        <td class="col-sm-8">{{ get_details.brand.brand_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Unit</th>
+                        <td class="col-sm-8">{{ get_details.unit.unit_name }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Details</th>
+                        <td class="col-sm-8">{{ get_details.details }}</td>
+                    </tr>
+                    <tr>
+                        <th class="col-sm-4">Stock Quantity</th>
+                        <td class="col-sm-8">{{ get_details.stock_qty }}</td>
+                    </tr>
+                </table>
+                
+
+            </div>
+    </form>
+</div>
+{% endblock %}

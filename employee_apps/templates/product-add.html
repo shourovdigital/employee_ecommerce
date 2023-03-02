@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h3 class="text-center">Add Product</h3> <hr>
+    <form method="POST">
+     {% csrf_token %}
+        <div class="row">
+           <div class="form-group col-sm-6">
+                <label for="product_name" class="form-label">Product Name</label>
+                <input type="text" class="form-control" name="product_name">
+           </div>
+           <div class="form-group col-sm-6">
+                <label for="regular_price" class="form-label">Regular Price</label>
+                <input type="text" class="form-control" name="regular_price">
+           </div>
+           <div class="form-group col-sm-6">
+                <label for="sales_price" class="form-label">Sales Price</label>
+                <input type="text" class="form-control" name="sales_price">
+           </div>
+            <div class="form-group col-sm-6">
+                    <label for="category" class="form-label">Select Category</label>
+                    <select name="category" class="form-control">
+                        <option value="">Select Category</option>
+                        {% for obj in get_category %}
+                                <option value="{{ obj.id }}">{{ obj.category_name }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="color" class="form-label">Select Color</label>
+                    <select name="color" class="form-control">
+                        <option value="">Select Color</option>
+                        {% for obj in get_color %}
+                            <option value="{{ obj.id }}">{{ obj.color_name }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="brand" class="form-label">Select Brand</label>
+                    <select name="brand" class="form-control">
+                        <option value="">Select Brand</option>
+                        {% for obj in get_brand %}
+                            <option value="{{ obj.id }}">{{ obj.brand_name }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="size" class="form-label">Select Size</label>
+                    <select name="size" class="form-control">
+                        <option value="">Select Size</option>
+                        {% for obj in get_size %}
+                            <option value="{{ obj.id }}">{{ obj.size_name }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group col-sm-6">
+                    <label for="unit" class="form-label">Select Unit</label>
+                    <select name="unit" class="form-control">
+                        <option value="">Select Unit</option>
+                        {% for obj in get_unit %}
+                            <option value="{{ obj.id }}">{{ obj.unit_name }}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+            <div class="form-group col-sm-6">
+                 <label for="stock_qty" class="form-label">Stock Quantity</label>
+                 <input type="text" class="form-control" name="stock_qty">
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="details" class="form-label">Product Details</label>
+                <textarea name="details" cols="5" rows="5" class="form-control" ></textarea>
+           </div>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="form-control col-sm-4 btn btn-success">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

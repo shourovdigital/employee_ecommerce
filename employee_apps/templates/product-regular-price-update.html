@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form method="POST">
+    {% csrf_token %}    
+        <div class="row form-group">
+            <label for="exampleInputEmail1">Update Regular Price</label>
+            <input type="text" class="form-control" name="product_regular_price_update" value="{{ get_regular_price.regular_price }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form method="POST">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label for="size_name" class="form-label">Size</label>
+                    <input type="text" class="form-control" id="size_name" name="size_name" value="{{ get_sizes.size_name }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
