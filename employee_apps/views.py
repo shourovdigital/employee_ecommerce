@@ -8,6 +8,14 @@ from .models import Product, ProductLog
 import xlwt
 from django.http import HttpResponse
 
+from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from io import BytesIO
 
 
 # Create your views here.
@@ -635,14 +643,14 @@ def log_product_delete(sender, instance, **kwargs):
     ProductLog.objects.create(action='deleted', product=instance)
 
 
-
-
-
 def product_log(request, id):
     product_instance = Product.objects.get(id=id)
     logs = ProductLog.objects.filter(product=product_instance)
     context = {'product': product_instance, 'logs': logs}
     return render(request, 'product-log.html', context)
+
+
+
 
 # Product Info Excel Export
 def product_excel_export(request): 
@@ -978,3 +986,54 @@ def brand_list_excel_export(request):
     wb.save(response)
 
     return response
+
+
+# Unit export as pdf
+def export_units_to_pdf(request):
+    # Get all units from the database
+    units = models.Unit.objects.all()
+
+    # Create a file-like buffer to receive PDF data.
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file."
+    doc = SimpleDocTemplate(buffer, pagesize=A4)
+
+    # Create a table and populate it with data from the queryset
+    data = []
+    data.append(['ID', 'Unit Name'])
+    for unit in units:
+        data.append([unit.id, unit.unit_name])
+    t = Table(data)
+
+    # Define the table style
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 14),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+        ('ALIGN', (0, 1), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 12),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
+    ])
+
+    # Apply the table style to the table
+    t.setStyle(style)
+
+    # Add the table to the PDF document
+    elements = []
+    elements.append(t)
+    doc.build(elements)
+
+    # File response with PDF content.
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="units.pdf"'
+
+    return response
+ 

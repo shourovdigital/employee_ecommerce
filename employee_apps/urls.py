@@ -39,6 +39,7 @@ urlpatterns =[
     path('unit-edit/<int:id>', views.unit_edit, name='unit_edit'),
     path('unit-delete/<int:id>', views.unit_delete, name='unit_delete'),
     path('unit-list-excel-export', views.unit_list_excel_export, name='unit_list_excel_export'), #for Excel Export
+    path('export-units-to-pdf', views.export_units_to_pdf, name='export_units_to_pdf'), # For PDF Export
     path('product-add', views.product_add, name='product_add'),
     path('product-list', views.product_list, name='product_list'),
     path('product-details/<int:id>', views.product_details, name='product_details'),
