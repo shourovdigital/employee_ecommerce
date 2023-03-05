@@ -8,9 +8,9 @@ from .models import Product, ProductLog
 import xlwt
 from django.http import HttpResponse
 
-from django.shortcuts import render, redirect
+# from django.shortcuts import render, redirect
 # from django.http import HttpResponse
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
@@ -1127,3 +1127,50 @@ def export_units_to_pdf(request):
 
     return response
  
+def product_pdf_export(request):
+    # Get all units from the database
+    products = models.Product.objects.all()
+
+    # Create a file-like buffer to receive PDF data.
+    buffer = BytesIO()
+
+    # Create the PDF object, using the buffer as its "file."
+    doc = SimpleDocTemplate(buffer, pagesize=landscape(A4))
+
+    # Create a table and populate it with data from the queryset
+    data = []
+    data.append(['ID', 'Product Name', 'Regular Price', 'Sales Price', 'Product Category', 'Color' ])
+    for product in products:
+        data.append([product.id, product.product_name, product.regular_price, product.sales_price, product.category.category_name, product.color])
+    t = Table(data)
+
+    # Define the table style
+    style = TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 12),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+        ('ALIGN', (0, 1), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 12),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 8),
+    ])
+
+    # Apply the table style to the table
+    t.setStyle(style)
+
+    # Add the table to the PDF document
+    elements = []
+    elements.append(t)
+    doc.build(elements)
+
+    # File response with PDF content.
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Products.pdf"'
+
+    return response

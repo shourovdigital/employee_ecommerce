@@ -49,6 +49,7 @@ urlpatterns =[
     path('product-regular-price-update/<int:id>', views.product_regular_price_update, name='product_regular_price_update'),
     path('product-log/<int:id>', views.product_log, name='product_log'),
     path('product-excel-export', views.product_excel_export, name='product_excel_export'),
-    # path('search-result-page', views.search_result_page, name='search_result_page')
+    path('product-pdf-export', views.product_pdf_export, name='product_pdf_export'),
+    
 
 ]
