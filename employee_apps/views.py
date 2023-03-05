@@ -173,7 +173,11 @@ def category_add(request):
 
 
 def category_list(request):
-    category = models.Category.objects.filter(status = True).order_by('-id')
+    searchText = request.GET.get('search')
+    if searchText:
+        category = models.Category.objects.filter(category_name__icontains=searchText, status = True).order_by('-id')
+    else:
+        category = models.Category.objects.filter(status = True).order_by('-id')
     context = {
         'category' : category
     }

@@ -48,6 +48,7 @@ urlpatterns =[
     path('product-sales-price-update/<int:id>/', views.product_sales_price_update, name='product_sales_price_update'),
     path('product-regular-price-update/<int:id>', views.product_regular_price_update, name='product_regular_price_update'),
     path('product-log/<int:id>', views.product_log, name='product_log'),
-    path('product-excel-export', views.product_excel_export, name='product_excel_export')
+    path('product-excel-export', views.product_excel_export, name='product_excel_export'),
+    # path('search-result-page', views.search_result_page, name='search_result_page')
 
 ]
