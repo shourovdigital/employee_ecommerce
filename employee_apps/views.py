@@ -221,7 +221,12 @@ def brand_add(request):
 
 
 def brand_list(request):
-    get_brands = models.Brand.objects.filter(status=True).order_by('-id')
+    searchText = request.GET.get('search')
+    if searchText:
+        get_brands = models.Brand.objects.filter(brand_name__icontains = searchText, status=True).order_by('-id')
+    
+    else:
+        get_brands = models.Brand.objects.filter(status=True).order_by('-id')
     context = {
         'get_brands' : get_brands
     }
