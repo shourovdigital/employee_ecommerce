@@ -16,6 +16,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from io import BytesIO
+from django.db.models import Q
 
 
 # Create your views here.
@@ -313,7 +314,11 @@ def color_add(request):
     return render(request, 'color-add.html')
 
 def color_list(request):
-    get_colors = models.Color.objects.filter( status = True ).order_by('-id')
+    searchText = request.GET.get('search')
+    if searchText:
+        get_colors = models.Color.objects.filter(color_name__icontains=searchText, status = True ).order_by('-id')
+    else:
+        get_colors = models.Color.objects.filter( status = True ).order_by('-id')
     context = {
         'get_colors' : get_colors
     }
@@ -430,12 +435,88 @@ def product_add(request):
             stock_qty = stock_qty
         )
         return redirect('/product-list')
+    
 
 def product_list(request):
-    get_products = models.Product.objects.filter(status=True).order_by('-id')
+    search_query = request.GET.get('search')
+    category_query = request.GET.get('category')
+    brand_query = request.GET.get('brand')
+
+    # Filter the products by search query
+    if search_query:
+        keywords = search_query.split()
+        get_products = models.Product.objects.filter(
+            Q(brand__brand_name__icontains=keywords[0]) | Q(category__category_name__icontains=keywords[0]),
+            status=True
+        )
+        for keyword in keywords[1:]:
+            get_products = get_products.filter(
+                Q(brand__brand_name__icontains=keyword) | Q(category__category_name__icontains=keyword),
+                status=True
+            )
+    
+    else:
+        get_products = models.Product.objects.filter(status=True)
+
+    # Filter the products by category
+    if category_query:
+        get_products = get_products.filter(category__id=category_query)
+
+    # Filter the products by brand
+    if brand_query:
+        get_products = get_products.filter(brand__id=brand_query)
+
+    
+    # Get all categories and brands for dropdown lists
+    categories = models.Category.objects.all()
+    brands = models.Brand.objects.all()
+
+    context = {
+        'get_products': get_products.order_by('-id'),
+        'categories': categories,
+        'brands': brands,
+        'selected_category': int(category_query) if category_query else None,
+        'selected_brand': int(brand_query) if brand_query else None
+    }
+
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        stock_qty = request.POST.get('stock_qty')
+
+        models.Product.objects.filter(id=product_id).update(
+            stock_qty=F('stock_qty') + stock_qty
+        )
+        models.QtyUpdateLog.objects.create(
+            updated_qty=stock_qty,
+            product_name_id=product_id
+        )
+
+        return redirect('/product-list')
+
+    return render(request, 'product-list.html', context)
+
+
+# def product_list(request):
+    #Search Query
+    search_query = request.GET.get('search')
+
+    if search_query:
+        query_params = Q(product_name__icontains=search_query) |\
+                       Q(category__category_name__icontains=search_query) |\
+                       Q(color__color_name__icontains=search_query) |\
+                       Q(brand__brand_name__icontains=search_query) |\
+                       Q(size__size_name__icontains=search_query)
+
+        get_products = models.Product.objects.filter(query_params, status=True).order_by('-id') 
+  
+    else:
+        get_products = models.Product.objects.filter(status=True).order_by('-id') #end search
+    
+    
     context = {
         'get_products' : get_products
     }
+    #
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         stock_qty = request.POST.get('stock_qty')
