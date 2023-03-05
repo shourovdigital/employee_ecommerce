@@ -1174,3 +1174,23 @@ def product_pdf_export(request):
     response['Content-Disposition'] = 'attachment; filename="Products.pdf"'
 
     return response
+
+
+
+
+def edu_department_add(request):
+    if request.method == 'POST':
+        edu_department = request.POST.get('edu_department')
+
+        models.EduDepartments.objects.create(
+            department_name = edu_department
+        )
+        return redirect('/edu-department-list')
+    return render(request, 'edu-department-add.html')
+
+def edu_department_list(request):
+    department_list = models.EduDepartments.objects.all().order_by('-id')
+    context = {
+        'department' : department_list 
+    }
+    return render(request, 'edu-department-list.html', context)

@@ -51,5 +51,7 @@ urlpatterns =[
     path('product-excel-export', views.product_excel_export, name='product_excel_export'),
     path('product-pdf-export', views.product_pdf_export, name='product_pdf_export'),
     
+    path('edu-department-add', views.edu_department_add, name='edu_department_add'),
+    path('edu-department-list', views.edu_department_list, name='edu_department_list'),
 
 ]

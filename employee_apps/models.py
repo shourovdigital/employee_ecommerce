@@ -195,3 +195,13 @@ class RegularPriceUpdateLog(models.Model):
 
     class Meta:
         db_table = 'regular_price_update_log'
+
+
+
+class EduDepartments(models.Model):
+    department_name = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'edu_departments'

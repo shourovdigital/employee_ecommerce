@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <form method="POST">
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="edu_department">Edu Department<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="edu_department" placeholder="Enter your Department here" name="edu_department" required>
+            </div>
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
