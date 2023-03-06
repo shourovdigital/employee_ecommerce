@@ -6,6 +6,9 @@ class Customers(models.Model):
     customer_email = models.EmailField(max_length=50)
     customer_phone = models.CharField(max_length=14)
     customer_address = models.TextField()
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'customers'

@@ -1,0 +1,29 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="customer_name" class="form-label">Customer Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="customer_name" value="{{ get_customers.customer_name }}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="customer_phone" class="form-label">Phone Number<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="customer_phone" value="{{ get_customers.customer_phone }}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="customer_email" class="form-label">Email Address<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="customer_email" value="{{ get_customers.customer_email }}">
+                </div> 
+                <div class="form-group col-sm-6">
+                    <label for="customer_address" class="form-label">Customer Address<span class="text-danger">*</span></label>
+                    <textarea name="customer_address" cols="15" rows="5" class="form-control" >{{ get_customers.customer_address }}</textarea>
+                </div>
+                <div class="text-center col-sm-12">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+</div>
+{% endblock %}
