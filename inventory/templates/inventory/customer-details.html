@@ -1,0 +1,29 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container">
+    <h3 class="text-dark">Customer Details</h3>
+    <a href="/inv/customer-list" class="btn btn-success btn-sm">Customer List</a>
+    <a href="/inv/customer-edit/{{ customer_details.id }}" class="btn btn-warning btn-sm">Customer List</a>
+    <a href="/inv/customer-add" class="btn btn-info btn-sm">Add New Customer</a>
+    <div class="row">
+        <table class="table">
+            <tr>
+                <th>Customer Name</th>
+                <td>{{ customer_details.customer_name }}</td>
+            </tr>
+            <tr>
+                <th>Customer Phone</th>
+                <td>{{ customer_details.customer_phone }}</td>
+            </tr>
+            <tr>
+                <th>Customer Email</th>
+                <td>{{ customer_details.customer_email }}</td>
+            </tr>
+            <tr>
+                <th>Customer Address</th>
+                <td>{{ customer_details.customer_address }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}
