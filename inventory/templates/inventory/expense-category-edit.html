@@ -1,0 +1,18 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <label for="expense_category" class="form-label">Expense Category Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="expense_category" value="{{ expense_categories.expense_category }}">
+                </div>
+                
+                <div class="text-center col-sm-8">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+</div>
+{% endblock %}

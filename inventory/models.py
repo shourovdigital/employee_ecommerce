@@ -12,3 +12,12 @@ class Customers(models.Model):
 
     class Meta:
         db_table = 'customers'
+
+class ExpenseCategory(models.Model):
+    expense_category = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'expense_categories'

@@ -80,4 +80,41 @@ def customer_details(request, id):
 
 # Expense
 def expense_category_add(request):
-    return render(request, 'expense-category-add.html')
+    if request.method == 'POST':
+        expense_category = request.POST.get('expense_category')
+
+        models.ExpenseCategory.objects.create(
+            expense_category = expense_category
+        )
+        return redirect('/inv/expense-category-list')
+    return render(request, 'inventory/expense-category-add.html')
+
+def expense_category_list(request):
+    expense_category = models.ExpenseCategory.objects.filter(deleted=False).order_by('-id')
+    context = {
+        'excat' : expense_category
+    }
+    return render(request, 'inventory/expense-category-list.html', context)
+
+
+def expense_category_edit(request, id):
+    if request.method == 'GET':
+        expense_categories = models.ExpenseCategory.objects.get(id=id)
+        context = {
+            'expense_categories' : expense_categories
+        }
+        return render(request, 'inventory/expense-category-edit.html', context)
+    else:
+        expense_category = request.POST.get('expense_category')
+
+        models.ExpenseCategory.objects.filter(id=id).update(
+            expense_category = expense_category
+        )
+        return redirect('/inv/expense-category-list')
+    
+
+def expense_category_delete(request, id):
+    models.ExpenseCategory.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/expense-category-list')
