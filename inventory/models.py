@@ -21,3 +21,17 @@ class ExpenseCategory(models.Model):
 
     class Meta:
         db_table = 'expense_categories'
+
+
+class Banks(models.Model):
+    bank_name = models.CharField(max_length=100)
+    account_number = models.CharField(max_length=100)
+    branch_name = models.CharField(max_length=100, blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'banks'
+
+

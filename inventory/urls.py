@@ -12,6 +12,9 @@ urlpatterns = [
     path('expense-category-list', views.expense_category_list, name='expense_category_list'),
     path('expense-category-edit/<int:id>', views.expense_category_edit, name='expense_category_edit'),
     path('expense-category-delete/<int:id>', views.expense_category_delete, name='expense_category_delete'),
-    
-    
+    path('bank-add', views.bank_add, name='bank_add'),
+    path('bank-list', views.bank_list, name='bank_list'),
+    path('bank-edit/<int:id>', views.bank_edit, name='bank_edit'),
+    path('bank-delete/<int:id>', views.bank_delete, name='bank_delete'),
+        
 ]

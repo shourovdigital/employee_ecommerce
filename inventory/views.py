@@ -118,3 +118,53 @@ def expense_category_delete(request, id):
         deleted = True
     )
     return redirect('/inv/expense-category-list')
+
+
+# Bank
+def bank_add(request):
+    if request.method == 'POST':
+        bank_name = request.POST.get('bank_name')
+        account_number = request.POST.get('account_number')
+        branch_name = request.POST.get('branch_name')
+
+        models.Banks.objects.create(
+            bank_name = bank_name,
+            account_number = account_number,
+            branch_name = branch_name
+        )
+        return redirect('/inv/bank-list')
+    return render(request, 'inventory/bank-add.html')
+
+def bank_list(request):
+    banks = models.Banks.objects.filter(deleted=False).order_by('-id')
+    context = {
+        'banks' : banks
+    }
+    return render(request, 'inventory/bank-list.html', context)
+
+
+def bank_edit(request, id):
+    if request.method == 'GET':
+        banks = models.Banks.objects.get(id=id)
+        context = {
+            'banks' : banks
+        }
+        return render(request, 'inventory/bank-edit.html', context)
+    else:
+        bank_name = request.POST['bank_name']
+        account_number = request.POST['account_number']
+        branch_name = request.POST['branch_name']
+
+        models.Banks.objects.filter(id=id).update(
+            bank_name = bank_name,
+            account_number = account_number,
+            branch_name = branch_name
+        )
+        return redirect('/inv/bank-list')
+    
+def bank_delete(request, id):
+    models.Banks.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/bank-list')
+
