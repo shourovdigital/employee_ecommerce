@@ -168,3 +168,33 @@ def bank_delete(request, id):
     )
     return redirect('/inv/bank-list')
 
+
+# Supplier
+def supplier_add(request):
+    if request.method == 'POST':
+        supplier_name = request.POST.get('supplier_name')
+        supplier_phone = request.POST.get('supplier_phone')
+        supplier_email = request.POST.get('supplier_email')
+        supplier_address = request.POST.get('supplier_address')
+        supplier_contact_person = request.POST.get('supplier_contact_person')
+        supplier_contact_person_designation = request.POST.get('supplier_contact_person_designation')
+        supplier_contact_person_phone = request.POST.get('supplier_contact_person_phone')
+
+        models.Suppliers.objects.create(
+            supplier_name = supplier_name,
+            supplier_phone = supplier_phone,
+            supplier_email = supplier_email,
+            supplier_address = supplier_address,
+            supplier_contact_person = supplier_contact_person,
+            supplier_contact_person_designation = supplier_contact_person_designation,
+            supplier_contact_person_phone = supplier_contact_person_phone
+        )
+        return redirect('/inv/supplier-list')
+    return render(request, 'inventory/supplier-add.html')
+
+def supplier_list(request):
+    suppliers = models.Suppliers.objects.all().order_by('-id')
+    context = {
+        'suppliers' : suppliers
+    }
+    return render(request, 'inventory/supplier-list.html', context)

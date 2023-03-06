@@ -35,3 +35,19 @@ class Banks(models.Model):
         db_table = 'banks'
 
 
+class Suppliers(models.Model):
+    supplier_name = models.CharField(max_length=100)
+    supplier_phone = models.CharField(max_length=14)
+    supplier_email = models.EmailField(max_length=50)
+    supplier_address = models.CharField(max_length=200)
+    supplier_contact_person = models.CharField(max_length=100)
+    supplier_contact_person_designation = models.CharField(max_length=50)
+    supplier_contact_person_phone = models.CharField(max_length=14)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'suppliers'
+
+

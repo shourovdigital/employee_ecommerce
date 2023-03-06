@@ -1,0 +1,34 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container">
+    <a href="/inv/bank-add" class="btn btn-success btn-sm">Add New Bank</a>
+    <div class="row">
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Supplier Name</th>
+            <th scope="col">Supplier Phone</th>
+            <th scope="col">Supplier Email</th>
+            <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ supplier.supplier_name }}</td>
+                    <td>{{ supplier.supplier_phone }}</td>
+                    <td>{{ supplier.supplier_email }}</td>
+                    <td>
+                        <a href="/inv/supplier-edit/{{ supplier.id }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="/inv/supplier-delete/{{ supplier.id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

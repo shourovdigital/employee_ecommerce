@@ -16,5 +16,7 @@ urlpatterns = [
     path('bank-list', views.bank_list, name='bank_list'),
     path('bank-edit/<int:id>', views.bank_edit, name='bank_edit'),
     path('bank-delete/<int:id>', views.bank_delete, name='bank_delete'),
+    path('supplier-add', views.supplier_add, name='supplier_add'),
+    path('supplier-list', views.supplier_list, name='supplier_list'),
         
 ]
