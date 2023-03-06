@@ -193,8 +193,41 @@ def supplier_add(request):
     return render(request, 'inventory/supplier-add.html')
 
 def supplier_list(request):
-    suppliers = models.Suppliers.objects.all().order_by('-id')
+    suppliers = models.Suppliers.objects.filter(deleted=False).order_by('-id')
     context = {
         'suppliers' : suppliers
     }
     return render(request, 'inventory/supplier-list.html', context)
+
+def supplier_edit(request, id):
+    if request.method == 'GET':
+        suppliers = models.Suppliers.objects.get(id=id)
+        context = {
+            'suppliers' : suppliers
+        }
+        return render(request, 'inventory/supplier-edit.html', context)
+    else:
+        supplier_name = request.POST['supplier_name']
+        supplier_phone = request.POST['supplier_phone']
+        supplier_email = request.POST['supplier_email']
+        supplier_address = request.POST['supplier_address']
+        supplier_contact_person = request.POST['supplier_contact_person']
+        supplier_contact_person_designation = request.POST['supplier_contact_person_designation']
+        supplier_contact_person_phone = request.POST['supplier_contact_person_phone']
+
+        models.Suppliers.objects.filter(id=id).update(
+            supplier_name = supplier_name,
+            supplier_phone = supplier_phone,
+            supplier_email = supplier_email,
+            supplier_address = supplier_address,
+            supplier_contact_person = supplier_contact_person,
+            supplier_contact_person_designation = supplier_contact_person_designation,
+            supplier_contact_person_phone = supplier_contact_person_phone
+        )
+        return redirect('/inv/supplier-list')
+    
+def supplier_delete(request, id):
+    models.Suppliers.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/supplier-list')

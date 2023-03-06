@@ -18,5 +18,8 @@ urlpatterns = [
     path('bank-delete/<int:id>', views.bank_delete, name='bank_delete'),
     path('supplier-add', views.supplier_add, name='supplier_add'),
     path('supplier-list', views.supplier_list, name='supplier_list'),
+    path('supplier-edit/<int:id>', views.supplier_edit, name='supplier_edit'),
+    path('supplier-delete/<int:id>', views.supplier_delete, name='supplier_delete'),
+    
         
 ]
