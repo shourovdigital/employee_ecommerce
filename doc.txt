@@ -1,0 +1,135 @@
+Product
+    Product Category - Add/Edit/Delete
+    Product Size - Add/Edit/Delete
+    Product Color - Add/Edit/Delete
+    Product Brand - Add/Edit/Delete
+    Product Unit - Add/Edit/Delete
+
+    Product Add/Edit/Delete
+        Product Name
+        Product Regular Sales Price 
+        Product Offer Sales Price 
+        Select Category
+        Select Color
+        Select Size
+        Select Brand
+        Unit (Qty + Select Unit)
+
+Product Purchase
+    Select Supplier
+    Select Product
+    Purchase Rate
+    Minimum Sales Rate
+    Paid Amount
+    Due Amount
+
+Supplier Report
+    Supplier Wise Product Report
+    Supplier Wise Total Payment Summery
+    Supplier Due Report
+
+
+
+Expense
+    Expense Date 
+    Expense Category 
+    Expense Details 
+    Expense Amount 
+    Expense From (Bank/Cash)
+    Cheque No/ TRNX Number
+    Remarks
+
+Expense Category 
+    Create Expense Category
+    Expense Category List
+
+Add Bank
+    Bank Name
+    Bank Account Number
+    Bank List
+
+
+Supplier
+    Add Supplier
+        Supplier Name
+        Supplier Contact No.
+        Supplier email
+        Supplier Address
+        Supplier Contact Person Name
+        Supplier Contract Person Designation
+        Supplier Contact Person Number
+    Supplier List 
+
+Daily Summery
+    Daily Sales Report 
+    Daily Expense Report 
+    Daily Cash Summery
+    Daily Purchase Report
+    Daily Supplier Payment Report 
+    Daily Customer Due Report
+    Daily Payment Report
+
+Monthly Summery
+    Monthly Income Report
+    Monthly Expense Report
+    Monthly Cash Report
+    Monthly Purchase Report
+    Monthly Supplier Payment Report
+    Monthly Customer Due Report
+    Monthly Customer Payment Report
+
+
+Customer    
+    Create Customer
+        Customer Name
+        Customer Email Address
+        Customer Address
+        Customer Phone Number
+    Customer List
+    Customer Due Report
+    Customer Wise Lifetime Payment Report
+
+
+
+Area Setup
+    Create Division (Add/Edit/Delete)
+    Create District Under Division (Add/Edit/Delete)
+    Create Upazila Under District (Add/Edit/Delete)
+    Area list
+    Area Wise Sales Report
+
+Sales
+    Create Sales
+        Sales Order No.
+        Sales Order Date
+        Select Customer
+        Delivery Address
+        Select Product
+        Product Description
+        Sales Qty
+        Unit Sales Price
+        Total Qty 
+
+        Total Amount
+        Discount Amount
+        Total Amount After Discount
+        Delivery Charge
+        Advanced Amount
+        Due Amount
+
+        Sales Order Notes
+        
+
+Payment Receive
+    Payment Receive Date
+    Select Sales Order No.
+    Sales Order Date
+    Client Name
+    Client Address
+    Invoiced Amount
+    Paid Amount 
+    Due Amount 
+    Sold By
+    Sell From ( Facebook Boost/ FB Influencer/ YT Influencer/ Google Marketing )
+    Income in (Bank/Cash/MFS)
+    Remarks
