@@ -118,6 +118,7 @@ Sales
         Due Amount
 
         Sales Order Notes
+    Sales Order List
         
 
 Payment Receive
