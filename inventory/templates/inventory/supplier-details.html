@@ -1,0 +1,41 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container bg-gradient-light">
+    <h3 class="text-dark">Supplier Details</h3>
+    <a href="/inv/supplier-list" class="btn btn-success btn-sm">Supplier List</a>
+    <a href="/inv/supplier-edit/{{ details.id }}" class="btn btn-warning btn-sm">Edit This Supplier</a>
+    <a href="/inv/supplier-add" class="btn btn-info btn-sm">Add New Supplier</a>
+    <div class="row">
+        <table class="table table-bordered mt-3">
+            <tr>
+                <th style="width: 350px;">Supplier Name</th>
+                <td>{{ details.supplier_name }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Phone</th>
+                <td>{{ details.supplier_phone }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Email</th>
+                <td>{{ details.supplier_email }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Address</th>
+                <td>{{ details.supplier_address }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Contact Person Name</th>
+                <td>{{ details.supplier_contact_person }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Contact Person Designation</th>
+                <td>{{ details.supplier_contact_person_designation }}</td>
+            </tr>
+            <tr>
+                <th>Supplier Contact Person Phone</th>
+                <td>{{ details.supplier_contact_person_phone }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

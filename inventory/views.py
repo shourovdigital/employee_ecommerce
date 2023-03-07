@@ -231,3 +231,11 @@ def supplier_delete(request, id):
         deleted = True
     )
     return redirect('/inv/supplier-list')
+
+
+def supplier_details(request, id):
+    supplier_details = models.Suppliers.objects.get(id=id)
+    context = {
+        'details' : supplier_details
+    }
+    return render(request, 'inventory/supplier-details.html', context)

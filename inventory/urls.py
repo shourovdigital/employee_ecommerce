@@ -20,6 +20,6 @@ urlpatterns = [
     path('supplier-list', views.supplier_list, name='supplier_list'),
     path('supplier-edit/<int:id>', views.supplier_edit, name='supplier_edit'),
     path('supplier-delete/<int:id>', views.supplier_delete, name='supplier_delete'),
-    
+    path('supplier-details/<int:id>', views.supplier_details, name='supplier_details'),
         
 ]

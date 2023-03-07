@@ -51,3 +51,12 @@ class Suppliers(models.Model):
         db_table = 'suppliers'
 
 
+class Area(models.Model):
+    area = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'areas'
+
