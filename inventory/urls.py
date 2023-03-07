@@ -21,5 +21,9 @@ urlpatterns = [
     path('supplier-edit/<int:id>', views.supplier_edit, name='supplier_edit'),
     path('supplier-delete/<int:id>', views.supplier_delete, name='supplier_delete'),
     path('supplier-details/<int:id>', views.supplier_details, name='supplier_details'),
+    path('area-add', views.area_add, name='area_add'),
+    path('area-list', views.area_list, name='area_list'),
+    path('area-edit/<int:id>', views.area_edit, name='area_edit'),
+    path('area-delete/<int:id>', views.area_delete, name='area_delete'),
         
 ]

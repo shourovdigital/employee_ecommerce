@@ -239,3 +239,43 @@ def supplier_details(request, id):
         'details' : supplier_details
     }
     return render(request, 'inventory/supplier-details.html', context)
+
+# Area
+def area_add(request):
+    if request.method == 'POST':
+        area = request.POST.get('area')
+
+        models.Area.objects.create(
+            area = area
+        )
+        return redirect('/inv/area-list')
+    return render(request, 'inventory/area-add.html')
+
+
+def area_list(request):
+    areas = models.Area.objects.filter(deleted=False).order_by('-id')
+    context = {
+        'areas' : areas
+    }
+    return render(request, 'inventory/area-list.html', context)
+
+def area_edit(request, id):
+    if request.method == 'GET':
+        areas = models.Area.objects.get(id=id)
+        context = {
+            'areas' : areas
+        }
+        return render(request, 'inventory/area-edit.html', context)
+    else:
+        area = request.POST.get('area')
+
+        models.Area.objects.filter(id=id).update(
+            area = area
+        )
+        return redirect('/inv/area-list')
+    
+def area_delete(request, id):
+    models.Area.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/area-list')

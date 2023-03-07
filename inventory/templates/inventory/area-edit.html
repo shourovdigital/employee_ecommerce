@@ -1,15 +1,15 @@
 {% extends 'inventory/base.html' %}
 {% block content %}
-<div class="container bg-gradient-light">
+<div class="container">
         <form method="POST">
             {% csrf_token %}
             <div class="row">
-                <div class="form-group col-sm-12">
-                    <label for="area" class="form-label text-dark">Area <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="area">
+                <div class="form-group col-sm-8">
+                    <label for="area" class="form-label">Area <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="area" value="{{ areas.area }}">
                 </div>
                 
-                <div class="text-center col-sm-12">
+                <div class="text-center col-sm-8">
                     <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
