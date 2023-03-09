@@ -16,12 +16,14 @@ Product
         Unit (Qty + Select Unit)
 
 Product Purchase
-    Select Supplier
-    Select Product
-    Purchase Rate
-    Minimum Sales Rate
-    Paid Amount
-    Due Amount
+    Purchase Invoice Number (Auto Generate )
+    Select Supplier (Foreign Key)
+    Select Product (Foreign Key)
+    Purchase Rate ()
+    Minimum Sales Rate()
+    Paid Amount()
+    Due Amount()
+
 
 Supplier Report
     Supplier Wise Product Report
@@ -35,7 +37,7 @@ Expense
     Expense Category 
     Expense Details 
     Expense Amount 
-    Expense From (Bank/Cash)
+    Select Expense From (Bank/Cash)
     Cheque No/ TRNX Number
     Remarks
 
@@ -95,11 +97,13 @@ Area Setup
     Create Division (Add/Edit/Delete)
     Create District Under Division (Add/Edit/Delete)
     Create Upazila Under District (Add/Edit/Delete)
+    Add Shipping Charge (Upazila Wise)
     Area list
     Area Wise Sales Report
 
 Sales
     Create Sales
+        Sell From ( Facebook Boost/ FB Influencer/ YT Influencer/ Google Marketing )
         Sales Order No.
         Sales Order Date
         Select Customer
@@ -108,13 +112,13 @@ Sales
         Product Description
         Sales Qty
         Unit Sales Price
-        Total Qty 
+        Total Price 
 
         Total Amount
         Discount Amount
         Total Amount After Discount
         Delivery Charge
-        Advanced Amount
+        Paid Amount
         Due Amount
 
         Sales Order Notes
@@ -124,13 +128,16 @@ Sales
 Payment Receive
     Payment Receive Date
     Select Sales Order No.
-    Sales Order Date
-    Client Name
-    Client Address
-    Invoiced Amount
+    Sales Order Date*
+    Client Name*
+    Client Address*
+    Invoiced Amount*
     Paid Amount 
     Due Amount 
-    Sold By
-    Sell From ( Facebook Boost/ FB Influencer/ YT Influencer/ Google Marketing )
-    Income in (Bank/Cash/MFS)
+    Received  By
+    Payment Type (Bank/Cash)
+    Bank ID
+    Bank Account Number
+    Transaction Number
+    Payment Prrof
     Remarks

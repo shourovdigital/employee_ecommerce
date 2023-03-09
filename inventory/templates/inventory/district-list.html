@@ -1,0 +1,30 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container bg-gradient-light">
+    <a href="/inv/district-add" class="btn btn-success btn-sm">Add New District</a>
+    <div class="row">
+        <table class="table table-bordered border border-4 border-white">
+        <thead>
+            <tr>
+            <th scope="col" style="width: 80px;">#</th>
+            <th scope="col" style="width: 500px;">District</th>
+            <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in districts %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.district_name }}</td>
+                    <td>
+                        <a href="/inv/division-edit/{{ obj.id }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="/inv/division-delete/{{ obj.id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

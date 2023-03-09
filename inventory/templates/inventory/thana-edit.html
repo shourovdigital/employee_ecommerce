@@ -1,0 +1,44 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container">
+    <form method="POST">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col-sm-6 form-group">
+                <label for="division">Select Division<span class="text-danger">*</span></label>
+                <select name="division_for_thana" class="form-control" >
+                    <option value="">Select Division</option>
+                    {% for obj in get_division %}
+                        {% if obj.id == get_thana.division_for_thana_id %}
+                            <option value="{{ obj.id }}" selected>{{ obj.division }}</option>
+                        {% else %}
+                            <option value="{{ obj.id }}">{{ obj.division }}</option>
+                        {% endif %}
+                        
+                    {% endfor %}
+                </select> 
+            </div>
+            <div class="col-sm-6 form-group">
+                <label for="district">Select District<span class="text-danger">*</span></label>
+                <select name="district_for_thana" class="form-control">
+                    <option value="">Select District</option>
+                    {% for obj in get_district %}
+                        {% if obj.id == get_thana.district_for_thana_id %}
+                            <option value="{{ obj.id }}" selected>{{ obj.district_name }}</option>
+                        {% else %}
+                            <option value="{{ obj.id }}">{{ obj.district_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select> 
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="thana" class="form-label">Thana Name</label>
+                <input type="text" name="thana_name" class="form-control" value="{{ get_thana.thana_name }}">
+            </div>
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -60,3 +60,34 @@ class Area(models.Model):
     class Meta:
         db_table = 'areas'
 
+
+
+class Division(models.Model):
+    division = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'divisions'
+
+class District(models.Model):
+    division_name = models.ForeignKey(Division, on_delete=models.CASCADE)
+    district_name = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'districts'
+
+class Thana(models.Model):
+    division_for_thana = models.ForeignKey(Division, on_delete=models.CASCADE)
+    district_for_thana = models.ForeignKey(District, on_delete=models.CASCADE)
+    thana_name = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'thana'

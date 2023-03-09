@@ -1,0 +1,34 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="container bg-gradient-light">
+    <a href="/inv/thana-add" class="btn btn-success btn-sm">Add New Thana</a>
+    <div class="row">
+        <table class="table table-bordered border border-4 border-white">
+        <thead>
+            <tr>
+            <th scope="col" style="width: 80px;">#</th>
+            <th scope="col" style="width: 500px;">Division</th>
+            <th scope="col" style="width: 500px;">District</th>
+            <th scope="col" style="width: 500px;">Thana</th>
+            <th scope="col" style="width: 200px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj in get_thana %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ obj.division_for_thana.division }}</td>
+                    <td>{{ obj.district_for_thana.district_name }}</td>
+                    <td>{{ obj.thana_name }}</td>
+                    <td>
+                        <a href="/inv/thana-edit/{{ obj.id }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="/inv/thana-delete/{{ obj.id }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

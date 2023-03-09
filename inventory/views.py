@@ -279,3 +279,132 @@ def area_delete(request, id):
         deleted = True
     )
     return redirect('/inv/area-list')
+
+
+# Division
+def division_add(request):
+    if request.method == 'POST':
+        division = request.POST['division']
+
+        models.Division.objects.create(
+            division = division
+        )
+        return redirect('/inv/division-list')
+    return render(request, 'inventory/division-add.html')
+
+
+def division_list(request):
+    divisions = models.Division.objects.filter(deleted=False).order_by('-id')
+    context = {
+        'divisions' : divisions
+    }
+    return render(request, 'inventory/division-list.html', context)
+
+
+def division_edit(request, id):
+    if request.method == 'GET':
+        get_division = models.Division.objects.get(id=id)
+        context = {
+            'division_name' : get_division.division
+        }
+        return render(request, 'inventory/division-edit.html', context)
+    else:
+        division = request.POST['division']
+
+        models.Division.objects.filter(id=id).update(
+            division = division
+        )
+        return redirect('/inv/division-list')
+    
+
+def division_delete(request, id):
+    models.Division.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/division-list')
+
+# District
+def district_add(request):
+    if request.method == 'GET':
+        get_divisions = models.Division.objects.all()
+        context = {
+            'get_divisions' : get_divisions
+        }
+        return render(request, 'inventory/district-add.html', context)
+    else:
+        division = request.POST.get('division_name')
+        district_name = request.POST.get('district_name')
+
+        models.District.objects.create(
+            division_name_id = division,
+            district_name = district_name
+        )
+        return redirect('/inv/district-list')
+
+def district_list(request):
+    districts = models.District.objects.all().order_by('-id')
+    context = {
+        'districts' : districts
+    }
+    return render(request, 'inventory/district-list.html', context)
+
+
+# Thana
+def thana_add(request):
+    if request.method == 'GET':
+        get_division = models.Division.objects.all()
+        get_district = models.District.objects.all()
+        context = {
+            'get_division' : get_division,
+            'get_district' : get_district
+        }
+        return render(request, 'inventory/thana-add.html', context)
+    else:
+        division_for_thana = request.POST.get('division_for_thana')
+        district_for_thana = request.POST.get('district_for_thana')
+        thana_name = request.POST.get('thana_name')
+
+        models.Thana.objects.create(
+            division_for_thana_id = division_for_thana,
+            district_for_thana_id = district_for_thana,
+            thana_name = thana_name
+        )
+        return redirect('/inv/thana-list')
+
+
+def thana_list(request):
+    get_thana = models.Thana.objects.filter(deleted=False).order_by('-id')
+    context = {
+        'get_thana' : get_thana
+    }
+    return render(request, 'inventory/thana-list.html', context)
+
+
+def thana_edit(request, id):
+    if request.method == 'GET':
+        get_thana = models.Thana.objects.get(id=id)
+        get_district = models.District.objects.all()
+        get_division = models.Division.objects.all()
+        context = {
+            'get_thana' : get_thana,
+            'get_district' : get_district,
+            'get_division' : get_division
+        }
+        return render(request, 'inventory/thana-edit.html', context)
+    else:
+        division_for_thana = request.POST.get('division_for_thana')
+        district_for_thana = request.POST.get('district_for_thana')
+        thana_name = request.POST.get('thana_name')
+
+        models.Thana.objects.filter(id=id).update(
+            division_for_thana_id = division_for_thana,
+            district_for_thana_id = district_for_thana,
+            thana_name = thana_name
+        )
+        return redirect('/inv/thana-list')
+    
+def thana_delete(request, id):
+    models.Thana.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/thana-list')
