@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from employee_apps.models import *
 from . import models
-
+from django.http import JsonResponse
 # Create your views here.
 def inventory_home(request):
     return render(request, 'inventory/index.html')
@@ -9,7 +9,18 @@ def inventory_home(request):
 
 # Customer 
 def customer_add(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        get_division = models.Division.objects.all()
+        get_district = models.District.objects.all()
+        get_thana = models.Thana.objects.all()
+        context = {
+            'get_division' : get_division,
+            'get_district' : get_district,
+            'get_thana' : get_thana
+        }
+        return render(request, 'inventory/customer-add.html', context)
+
+    else:
         customer_name = request.POST.get('customer_name')
         customer_phone = request.POST.get('customer_phone')
         customer_email = request.POST.get('customer_email')
@@ -22,7 +33,6 @@ def customer_add(request):
             customer_address = customer_address
         )
         return redirect('/inv/customer-list')
-    return render(request, 'inventory/customer-add.html')
 
 
 def customer_list(request):
@@ -36,8 +46,14 @@ def customer_list(request):
 def customer_edit(request, id):
     if request.method == 'GET':
         get_customers = models.Customers.objects.get(id=id)
+        get_division = models.Division.objects.all()
+        get_district = models.District.objects.all()
+        get_thana = models.Thana.objects.all()
         context = {
-            'get_customers' : get_customers
+            'get_customers' : get_customers,
+            'get_division' : get_division,
+            'get_district' : get_district,
+            'get_thana' : get_thana
         }
         return render(request, 'inventory/customer-edit.html', context)
     
@@ -45,6 +61,9 @@ def customer_edit(request, id):
         customer_name = request.POST['customer_name']
         customer_phone = request.POST['customer_phone']
         customer_email = request.POST['customer_email']
+        division = request.POST['division']
+        district = request.POST['district']
+        thana = request.POST['thana']
         customer_address = request.POST['customer_address']
     
     # or
@@ -58,7 +77,11 @@ def customer_edit(request, id):
             customer_name = customer_name,
             customer_phone = customer_phone,
             customer_email = customer_email,
+            division_id = division,
+            district_id = district,
+            thana_id = thana,
             customer_address = customer_address
+
         )
         return redirect('/inv/customer-list')
     
@@ -342,12 +365,37 @@ def district_add(request):
         return redirect('/inv/district-list')
 
 def district_list(request):
-    districts = models.District.objects.all().order_by('-id')
+    districts = models.District.objects.filter(deleted=False).order_by('-id')
     context = {
         'districts' : districts
     }
     return render(request, 'inventory/district-list.html', context)
 
+
+def district_edit(request, id):
+    if request.method == 'GET':
+        district_info = models.District.objects.get(id=id)
+        get_division = models.Division.objects.all()
+        context = {
+            'district_info' : district_info,
+            'get_division' : get_division
+        }
+        return render(request, 'inventory/district-edit.html', context)
+    else:
+        division_name = request.POST.get('division_name')
+        district_name = request.POST.get('district_name')
+
+        models.District.objects.filter(id=id).update(
+            division_name_id = division_name,
+            district_name = district_name
+        )
+        return redirect('/inv/district-list')
+    
+def district_delete(request, id):
+    models.District.objects.filter(id=id).update(
+        deleted = True
+    )
+    return redirect('/inv/district-list')
 
 # Thana
 def thana_add(request):
@@ -370,6 +418,7 @@ def thana_add(request):
             thana_name = thana_name
         )
         return redirect('/inv/thana-list')
+
 
 
 def thana_list(request):
@@ -408,3 +457,25 @@ def thana_delete(request, id):
         deleted = True
     )
     return redirect('/inv/thana-list')
+
+
+
+
+
+
+
+def load_division(request):
+    division = models.Division.objects.all()
+    return JsonResponse(list(division.values('id','division')),safe=False)
+
+def load_district(request):
+    division_id = request.GET.get('division_id')
+    district = models.District.objects.filter(division_name=division_id)
+    return JsonResponse(list(district.values('id','district_name')),safe=False)
+
+
+def load_thana(request):
+    division_id = request.GET.get('division_id')
+    district_id = request.GET.get('district_id')
+    district = models.Thana.objects.filter(division_for_thana = division_id,district_for_thana=district_id)
+    return JsonResponse(list(district.values('id','thana_name')),safe=False)

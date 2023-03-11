@@ -14,11 +14,43 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="customer_email" class="form-label">Email Address<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="customer_email">
-                </div> 
+                    <input type="email" class="form-control" name="customer_email">
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="division">Select Division<span class="text-danger">*</span></label>
+                    <select name="division" class="form-control">
+                        <option value="">Select Division</option>
+                        {% for obj in get_division %}
+                            <option value="{{ obj.id }}">{{ obj.division }}</option>
+                        {% endfor %}
+                    </select> 
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="district">Select District<span class="text-danger">*</span></label>
+                    <select name="district_for_thana" class="form-control">
+                        <option value="">Select District</option>
+                        {% for obj in get_district %}
+                            <option value="{{ obj.id }}">{{ obj.district_name }}</option>
+                        {% endfor %}
+                    </select> 
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="thana">Select Thana<span class="text-danger">*</span></label>
+                    <select name="thana_name" class="form-control">
+                        <option value="">Select Thana</option>
+                        {% for obj in get_thana %}
+                            <option value="{{ obj.id }}">{{ obj.thana_name }}</option>
+                        {% endfor %}
+                    </select> 
+                </div>
+
                 <div class="form-group col-sm-6">
                     <label for="customer_address" class="form-label">Customer Address<span class="text-danger">*</span></label>
-                    <textarea name="customer_address" cols="15" rows="5" class="form-control" ></textarea>
+                    <!-- <textarea name="customer_address" cols="15" rows="5" class="form-control" ></textarea> -->
+                    <input type="text" class="form-control" name="customer_address">
                 </div>
                 <div class="text-center col-sm-12">
                     <button type="submit" class="btn btn-success">Submit</button>

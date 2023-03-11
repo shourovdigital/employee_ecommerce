@@ -38,9 +38,18 @@ urlpatterns = [
 
     path('district-add', views.district_add, name='district_add'),
     path('district-list', views.district_list, name='district_list'),
+    path('district-edit/<int:id>', views.district_edit, name='district_edit'),
+    path('district-delete/<int:id>', views.district_delete, name='district_delete'),
 
     path('thana-add', views.thana_add, name='thana_add'),
     path('thana-list', views.thana_list, name='thana_list'),
     path('thana-edit/<int:id>', views.thana_edit, name='thana_edit'),
     path('thana-delete/<int:id>', views.thana_delete, name='thana_delete'),
+
+
+
+    path('load_division',views.load_division),
+    path('load_district',views.load_district),
+    path('load_thana',views.load_thana)
+    
 ]

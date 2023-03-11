@@ -114,6 +114,16 @@ Sales
         Unit Sales Price
         Total Price 
 
+        model: Product
+        name: 
+        qty:
+        price:
+
+
+        model: Order
+        product_id:
+        total_price:
+
         Total Amount
         Discount Amount
         Total Amount After Discount

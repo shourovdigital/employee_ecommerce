@@ -1,11 +1,43 @@
 from django.db import models
 
-# Create your models here.
+class Division(models.Model):
+    division = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'divisions'
+
+class District(models.Model):
+    division_name = models.ForeignKey(Division, on_delete=models.CASCADE)
+    district_name = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'districts'
+
+class Thana(models.Model):
+    division_for_thana = models.ForeignKey(Division, on_delete=models.CASCADE)
+    district_for_thana = models.ForeignKey(District, on_delete=models.CASCADE)
+    thana_name = models.CharField(max_length=50)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'thana'
+
 class Customers(models.Model):
     customer_name = models.CharField(max_length=100)
     customer_email = models.EmailField(max_length=50)
     customer_phone = models.CharField(max_length=14)
-    customer_address = models.TextField()
+    division = models.ForeignKey(Division, on_delete=models.CASCADE, null=True, blank=True)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
+    thana = models.ForeignKey(Thana, on_delete=models.CASCADE, null=True, blank=True)
+    customer_address = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted = models.BooleanField(default=False)
@@ -62,32 +94,3 @@ class Area(models.Model):
 
 
 
-class Division(models.Model):
-    division = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
-    deleted = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = 'divisions'
-
-class District(models.Model):
-    division_name = models.ForeignKey(Division, on_delete=models.CASCADE)
-    district_name = models.CharField(max_length=50)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
-    deleted = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = 'districts'
-
-class Thana(models.Model):
-    division_for_thana = models.ForeignKey(Division, on_delete=models.CASCADE)
-    district_for_thana = models.ForeignKey(District, on_delete=models.CASCADE)
-    thana_name = models.CharField(max_length=50)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now_add=True)
-    deleted = models.BooleanField(default=False)
-
-    class Meta:
-        db_table = 'thana'

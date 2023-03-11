@@ -16,9 +16,51 @@
                     <label for="customer_email" class="form-label">Email Address<span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="customer_email" value="{{ get_customers.customer_email }}">
                 </div> 
+                <div class="col-sm-6 form-group">
+                    <label for="division">Select Division<span class="text-danger">*</span></label>
+                    <select name="division" class="form-control">
+                        <option value="">Select Division</option>
+                        {% for obj in get_division %}
+                            {% if obj.id == get_customers.division_id %}
+                                <option value="{{ obj.id }}" selected>{{ obj.division }}</option>
+                            {% else %}
+                                <option value="{{ obj.id }}">{{ obj.division }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select> 
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="district">Select District<span class="text-danger">*</span></label>
+                    <select name="district" class="form-control">
+                        <option value="">Select District</option>
+                        {% for obj in get_district %}
+                            {% if obj.id == get_customers.district_id %}
+                                <option value="{{ obj.id }}" selected>{{ obj.district_name }}</option>
+                            {% else %}
+                                <option value="{{ obj.id }}">{{ obj.district_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select> 
+                </div>
+
+                <div class="col-sm-6 form-group">
+                    <label for="thana">Select Thana<span class="text-danger">*</span></label>
+                    <select name="thana" class="form-control">
+                        <option value="">Select Thana</option>
+                        {% for obj in get_thana %}
+                            {% if obj.id == get_customers.thana_id %}
+                                <option value="{{ obj.id }}" selected>{{ obj.thana_name }}</option>
+                            {% else %}
+                                <option value="{{ obj.id }}">{{ obj.thana_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select> 
+                </div>
                 <div class="form-group col-sm-6">
                     <label for="customer_address" class="form-label">Customer Address<span class="text-danger">*</span></label>
-                    <textarea name="customer_address" cols="15" rows="5" class="form-control" >{{ get_customers.customer_address }}</textarea>
+                    <input type="text" class="form-control" name="customer_address" value="{{ get_customers.customer_address }}">
+                    <!-- <textarea name="customer_address" cols="15" rows="5" class="form-control" >{{ get_customers.customer_address }}</textarea> -->
                 </div>
                 <div class="text-center col-sm-12">
                     <button type="submit" class="btn btn-success">Submit</button>
